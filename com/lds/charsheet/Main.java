@@ -1,5 +1,6 @@
 package com.lds.charsheet;
 
+import javax.swing.DefaultListModel;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
@@ -10,10 +11,12 @@ import javax.swing.ListSelectionModel;
 import java.io.File;
 import java.util.LinkedList;
 import java.util.Scanner;
+import java.util.Vector;
 
 import net.miginfocom.swing.MigLayout;
 import javax.swing.JList;
 import javax.swing.JLabel;
+import java.awt.GridLayout;
 
 @SuppressWarnings("serial")
 public class Main extends JFrame {
@@ -23,8 +26,8 @@ public class Main extends JFrame {
 	private JPanel panelList;
 	private JPanel panelForm;
 	private JList currentHeroes;
-	private LinkedList<Race> races;
-	private LinkedList<Hero> heroes;
+	private Vector<Race> races;
+	private Vector<Hero> heroes;
 
 	/**
 	 * Launch the application.
@@ -36,11 +39,14 @@ public class Main extends JFrame {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		/*
+		 * TODO: dodaj listenery do listy, zeby sprawdzic, jak sie zachowuje wyswietlanie i uaktualnianie labeli.
+		 * Potem tworzenie i zapisywanie - buttony, nowy jframe, takie tam.
+		 */
 
 	}
 
-	public Main() 
-	{
+	public Main() {
 		initShit();
 		setTitle("Starchasers Char Sheet Designer v0.0.1");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -64,7 +70,7 @@ public class Main extends JFrame {
 		JMenuItem mntmPreferences = new JMenuItem("Preferences");
 		mnEdit.add(mntmPreferences);
 		getContentPane().setLayout(
-				new MigLayout("", "[grow][grow][][][grow]", "[grow]"));
+				new MigLayout("", "[grow][grow][][][grow]", "[grow][]"));
 
 		panelForm = new JPanel();
 		getContentPane().add(panelForm, "cell 0 0 4 1,grow");
@@ -94,44 +100,80 @@ public class Main extends JFrame {
 		varRace.setBounds(53, 46, 46, 14);
 		panelForm.add(varRace);
 
+		//testy testy
+		currentHeroes = new JList(races);
+		DefaultListModel<String> listmodel = new DefaultListModel<>();
+
 		panelList = new JPanel();
 		getContentPane().add(panelList, "cell 4 0,grow");
+		panelList.setLayout(new GridLayout(0, 1, 0, 0));
+		currentHeroes = new JList<String>(listmodel);
+		currentHeroes
+				.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
+		currentHeroes.setLayoutOrientation(JList.VERTICAL);
+		currentHeroes.setVisibleRowCount(5);
 
-		currentHeroes = new JList();
-		currentHeroes.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
-		currentHeroes.setLayoutOrientation(JList.HORIZONTAL_WRAP);
-		currentHeroes.setVisibleRowCount(-1);
 		panelList.add(currentHeroes);
-
 	}
 
-	private void loadRaces() 
-	{
+	public void initShit() {
+		races = new Vector<Race>();
+		loadRaces();
+		heroes = new Vector<Hero>();
+		loadHeroes();
+	}
+
+	private void loadRaces() {
+		// tymczasowo z pliku
 		try {
 			File file = new File(
 					"D:\\Dropbox\\Projekty\\Starchasers\\races.txt");
 			Scanner scan = new Scanner(file);
 
-			while (scan.next() != null) 
-			{
-				races.add(new Race(scan.next(), scan.nextDouble()));
+			while (scan.hasNext()) {
+				races.add(new Race(scan.next(), scan.nextInt()));
 			}
 			scan.close();
 
-		} catch (Exception e) {System.out.println(e.getClass() + " has happened");}
+		} catch (Exception e) {
+			System.out.println(e.getClass() + " has happened while loading races");
+		}
 
 	}
 
-	public void initShit() {
-		races = new LinkedList<Race>();
-		loadRaces();
-		heroes = new LinkedList<Hero>();
-		loadHeroes();
+	private Race findRace(String rasa) {
+		for (int i = 0; i < races.size(); i++) {
+			if (rasa == races.get(i).name)
+				return races.get(i);
+		}
+		return null;
 	}
 
-	private void loadHeroes() 
-	{
-		//woop nothing happens here
+	private void loadHeroes() {
+		// tymczasowo z pliku
+		try {
+			File file = new File(
+					"D:\\Dropbox\\Projekty\\Starchasers\\heroes.txt");
+			Scanner scan = new Scanner(file);
+
+			while (scan.next() != null) {
+				// placz i zawodzenie kobiet - zmienic na uzycie object
+				// input/output stream. W najblizszej przyszlosci.
+				heroes.add(new Hero(scan.next(), scan.next(), findRace(scan
+						.next()), scan.next(), scan.nextInt(), scan
+						.nextDouble(), scan.nextDouble(), scan.next(), scan
+						.next(), scan.next(), scan.nextInt(), scan.next(), scan
+						.nextInt(), scan.nextInt(), scan.nextInt(), scan
+						.nextInt(), scan.nextInt(),
+						new Attribute(scan.nextDouble(), scan.nextDouble(),
+								scan.nextDouble(), scan.nextDouble(), scan
+										.nextDouble(), scan.nextDouble())));
+			}
+			scan.close();
+
+		} catch (Exception e) {
+			System.out.println(e.getClass() + " has happened while loading heroes");
+		}
 	}
 
 }

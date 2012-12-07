@@ -17,4 +17,14 @@ public class Attribute
 		psi = 0;
 		luck = 1;
 	}
+	
+	
+	public Attribute(double dexternity,double endurance,double inteligence,double charisma,double psi, double luck) {
+		this.dexternity = dexternity;
+		this.endurance = endurance;
+		this.inteligence = inteligence;
+		this.charisma = charisma;
+		this.psi = psi;
+		this.luck = luck;
+	}
 }

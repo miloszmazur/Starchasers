@@ -5,7 +5,7 @@ public class Hero
 	String name;
 	String surnm;
 	Race race;
-	char sex;
+	String sex;
 	int age;
 	double height;
 	double weight;
@@ -22,7 +22,7 @@ public class Hero
 	int ps; //the fuck
 	Attribute atr;
 	
-	public Hero(String name, String surname, Race race, char sex, int age, 
+	public Hero(String name, String surname, Race race, String sex, int age, 
 			double height, double weight, String eC, String hC, String prof, int rep,
 			String cJ, int fame, int lvl, double pd, int staz, int ps, Attribute atr)
 	{
@@ -51,7 +51,7 @@ public class Hero
 		this.name = "";
 		surnm = "";
 		this.race = null;
-		this.sex = 'M';
+		this.sex = "M";
 		this.age = 20;
 		this.height = 180;
 		this.weight = 80;
