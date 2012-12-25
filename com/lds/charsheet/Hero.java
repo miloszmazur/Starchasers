@@ -1,10 +1,16 @@
 package com.lds.charsheet;
 
-public class Hero 
+import java.io.Serializable;
+
+public class Hero implements Serializable
 {
+	/**
+	 * DAFUQ IS DIS
+	 */
+	private static final long serialVersionUID = 1L;
 	String name;
 	String surnm;
-	Race race;
+	String race;
 	String sex;
 	int age;
 	double height;
@@ -22,9 +28,9 @@ public class Hero
 	int ps; //the fuck
 	Attribute atr;
 	
-	public Hero(String name, String surname, Race race, String sex, int age, 
+	public Hero(String name, String surname, String race, String sex, int age, 
 			double height, double weight, String eC, String hC, String prof, int rep,
-			String cJ, int fame, int lvl, double pd, int staz, int ps, Attribute atr)
+			String cJ, int fame, int lvl, double pd, int staz, int ps)
 	{
 		this.name = name;
 		surnm= surname;
@@ -36,14 +42,14 @@ public class Hero
 		eyeColour = eC;
 		hairColour = hC;
 		profession = prof;
-		reputation = rep; //w doc string
+		reputation = rep; //w dokumentacji jest to string, ale...
 		currJob = cJ;
 		this.fame = fame;
 		this.lvl  = lvl;
 		this.pd = pd;
 		this.staz = staz; //the fuck
 		this.ps = ps; //the fuck
-		this.atr = atr;
+		//this.atr = atr;
 		
 	}
 	public Hero()
@@ -65,7 +71,12 @@ public class Hero
 		pd = 0;
 		staz = 0; //the fuck
 		ps = 0; //the fuck
-		atr = new Attribute();
+		//atr = new Attribute();
+	}
+	
+	public String toString()
+	{
+		return name + " " + surnm;
 	}
 	
 }

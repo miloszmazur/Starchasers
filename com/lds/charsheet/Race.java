@@ -12,4 +12,8 @@ public class Race
 	}
 	
 	
+	public String toString()
+	{
+		return name;
+	}
 }
