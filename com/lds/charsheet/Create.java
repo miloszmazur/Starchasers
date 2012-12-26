@@ -17,6 +17,10 @@ import javax.swing.JSpinner;
 import javax.swing.JEditorPane;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.io.File;
+import java.util.Scanner;
+import java.util.Vector;
+
 import javax.swing.UIManager;
 import javax.swing.SpinnerNumberModel;
 
@@ -31,6 +35,12 @@ public class Create extends JFrame {
 	private JTextField zawod;
 	private JTextField rep;
 	private JTextField stanowisko;
+	private Vector<Race> races;
+	private JComboBox rasa;
+	private JLabel labelSilaPsi;
+	private JLabel labelPsionika;
+	private JSpinner psionika;
+
 
 
 
@@ -43,6 +53,9 @@ public class Create extends JFrame {
 		setResizable(false);
 		getContentPane().setLayout(new MigLayout("", "[grow]", "[grow][grow][grow][grow][grow]"));
 		
+		races = new Vector<Race>();
+		loadRaces();
+
 		JPanel podstawy = new JPanel();
 		podstawy.setBorder(new TitledBorder(null, "Podstawowe Informacje", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		getContentPane().add(podstawy, "cell 0 0,grow");
@@ -126,8 +139,32 @@ public class Create extends JFrame {
 		gbc_lblRasa.gridy = 2;
 		podstawy.add(lblRasa, gbc_lblRasa);
 		
-		//TODO: Dodaæ rasy do ComboBox
-		JComboBox rasa = new JComboBox();
+		rasa = new JComboBox();
+		for(Race race: races)
+			rasa.addItem(race);
+		rasa.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) 
+			{
+				//przepraszam doktora ratajczaka.
+				int potent = (int)((Race)rasa.getSelectedItem()).psiPotent;
+				labelSilaPsi.setText(potent+"%");
+				int rand = (int)(Math.random()*100+1);
+				if(rand<=potent)
+				{
+					labelPsionika.setText("Tak");
+					psionika.setEnabled(true);
+				}
+				else
+				{
+					labelPsionika.setText("Nie");
+					psionika.setEnabled(false);
+				}
+				
+
+			}
+		});
 		GridBagConstraints gbc_rasa = new GridBagConstraints();
 		gbc_rasa.gridwidth = 2;
 		gbc_rasa.fill = GridBagConstraints.HORIZONTAL;
@@ -378,14 +415,17 @@ public class Create extends JFrame {
 		gbc_sila.gridy = 0;
 		atrybuty.add(sila, gbc_sila);
 		
-		JLabel lblSiaPsi = new JLabel("Si\u0142a Psi: ");
+		JLabel lblSiaPsi = new JLabel("Si\u0142a Psi z rasy: ");
 		GridBagConstraints gbc_lblSiaPsi = new GridBagConstraints();
 		gbc_lblSiaPsi.insets = new Insets(0, 0, 5, 5);
 		gbc_lblSiaPsi.gridx = 6;
 		gbc_lblSiaPsi.gridy = 0;
 		atrybuty.add(lblSiaPsi, gbc_lblSiaPsi);
 		
-		JLabel labelSilaPsi = new JLabel("Random");
+		//TODO: tutaj trzeba zasadniczo sprawdzic, czy sila psi wystepuje w danym bohaterze i uaktywnic/dezaktywowac pole psionika
+		labelSilaPsi = new JLabel("");
+		
+		labelSilaPsi.setText((int)((Race)rasa.getSelectedItem()).psiPotent+"%");
 		GridBagConstraints gbc_labelSilaPsi = new GridBagConstraints();
 		gbc_labelSilaPsi.insets = new Insets(0, 0, 5, 0);
 		gbc_labelSilaPsi.gridx = 7;
@@ -408,19 +448,20 @@ public class Create extends JFrame {
 		gbc_zrecznosc.gridy = 1;
 		atrybuty.add(zrecznosc, gbc_zrecznosc);
 		
-		JLabel lblPozostaePunkty = new JLabel("Pozosta\u0142e punkty: ");
-		GridBagConstraints gbc_lblPozostaePunkty = new GridBagConstraints();
-		gbc_lblPozostaePunkty.insets = new Insets(0, 0, 5, 5);
-		gbc_lblPozostaePunkty.gridx = 6;
-		gbc_lblPozostaePunkty.gridy = 1;
-		atrybuty.add(lblPozostaePunkty, gbc_lblPozostaePunkty);
 		
-		JLabel labelPunktyUmiejetnosci = new JLabel("Random");
-		GridBagConstraints gbc_labelPunktyUmiejetnosci = new GridBagConstraints();
-		gbc_labelPunktyUmiejetnosci.insets = new Insets(0, 0, 5, 0);
-		gbc_labelPunktyUmiejetnosci.gridx = 7;
-		gbc_labelPunktyUmiejetnosci.gridy = 1;
-		atrybuty.add(labelPunktyUmiejetnosci, gbc_labelPunktyUmiejetnosci);
+		JLabel lblPsionik = new JLabel("Psionik: ");
+		GridBagConstraints gbc_lblPsionik = new GridBagConstraints();
+		gbc_lblPsionik.insets = new Insets(0, 0, 5, 5);
+		gbc_lblPsionik.gridx = 6;
+		gbc_lblPsionik.gridy = 1;
+		atrybuty.add(lblPsionik, gbc_lblPsionik);
+		
+		labelPsionika = new JLabel("HEH");
+		GridBagConstraints gbc_labelPsionika = new GridBagConstraints();
+		gbc_labelPsionika.insets = new Insets(0, 0, 5, 0);
+		gbc_labelPsionika.gridx = 7;
+		gbc_labelPsionika.gridy = 1;
+		atrybuty.add(labelPsionika, gbc_labelPsionika);
 		
 		JLabel lblWytrzymao = new JLabel("Wytrzyma\u0142o\u015B\u0107: ");
 		GridBagConstraints gbc_lblWytrzymao = new GridBagConstraints();
@@ -437,6 +478,24 @@ public class Create extends JFrame {
 		gbc_wytrzymalosc.gridx = 1;
 		gbc_wytrzymalosc.gridy = 2;
 		atrybuty.add(wytrzymalosc, gbc_wytrzymalosc);
+		
+		
+		JLabel lblPozostaePunkty = new JLabel("Pozosta\u0142e punkty: ");
+		GridBagConstraints gbc_lblPozostaePunkty = new GridBagConstraints();
+		gbc_lblPozostaePunkty.insets = new Insets(0, 0, 5, 5);
+		gbc_lblPozostaePunkty.gridx = 6;
+		gbc_lblPozostaePunkty.gridy = 2;
+		atrybuty.add(lblPozostaePunkty, gbc_lblPozostaePunkty);
+		
+		//TODO: dodac zmiane tego gowna przy zmianie wartosci spinnerow odpowiednich atrybutow.
+		//ciezko bedzie wylaczyc edytowanie, kiedy przekroczy ta wartosc. Do przemyslenia.
+		int rand = (int)((Math.random()*6+1) + (Math.random()*6+1) + (Math.random()*6+1)) + 3;
+		JLabel labelPunktyUmiejetnosci = new JLabel(rand+"");
+		GridBagConstraints gbc_labelPunktyUmiejetnosci = new GridBagConstraints();
+		gbc_labelPunktyUmiejetnosci.insets = new Insets(0, 0, 5, 0);
+		gbc_labelPunktyUmiejetnosci.gridx = 7;
+		gbc_labelPunktyUmiejetnosci.gridy = 2;
+		atrybuty.add(labelPunktyUmiejetnosci, gbc_labelPunktyUmiejetnosci);
 		
 		JLabel lblNewLabel_1 = new JLabel("Inteligencja: ");
 		GridBagConstraints gbc_lblNewLabel_1 = new GridBagConstraints();
@@ -477,7 +536,7 @@ public class Create extends JFrame {
 		gbc_lblPsionika.gridy = 5;
 		atrybuty.add(lblPsionika, gbc_lblPsionika);
 		
-		JSpinner psionika = new JSpinner();
+		psionika = new JSpinner();
 		GridBagConstraints gbc_psionika = new GridBagConstraints();
 		gbc_psionika.gridwidth = 3;
 		gbc_psionika.fill = GridBagConstraints.HORIZONTAL;
@@ -556,6 +615,24 @@ public class Create extends JFrame {
 	private void saveChar() {
 		// TODO stworz hero z fieldow, zapisz go do obiektu, skorzystaj z xstream zeby przeksztalcic go do xmla, zapisz do pliku i wylacz okno.
 		
+	}
+	void loadRaces() {
+		// tymczasowo z pliku
+		try {
+			File file = new File(
+					"D:\\Dropbox\\Projekty\\Starchasers\\races.txt");
+			Scanner scan = new Scanner(file);
+
+			while (scan.hasNext()) {
+				races.add(new Race(scan.next(), scan.nextInt()));
+			}
+			scan.close();
+
+		} catch (Exception e) {
+			System.out.println(e.getClass()
+					+ " has happened while loading races");
+		}
+
 	}
 	
 	

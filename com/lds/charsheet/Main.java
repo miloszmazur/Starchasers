@@ -48,7 +48,6 @@ public class Main extends JFrame {
 	public Create create;
 	@SuppressWarnings("rawtypes")
 	private JList currentHeroes;
-	public static Vector<Race> races;
 	public static Vector<Hero> heroes;
 
 	/**
@@ -57,8 +56,6 @@ public class Main extends JFrame {
 	 */
 	public static void main(String[] args) throws IOException 
 	{
-		races = new Vector<Race>();
-		loadRaces();
 		heroes = new Vector<Hero>();
 		
 		XStream x = new XStream(new StaxDriver());
@@ -175,32 +172,15 @@ public class Main extends JFrame {
 		panelList.add(currentHeroes);
 	}
 
-	private static void loadRaces() {
-		// tymczasowo z pliku
-		try {
-			File file = new File(
-					"D:\\Dropbox\\Projekty\\Starchasers\\races.txt");
-			Scanner scan = new Scanner(file);
-
-			while (scan.hasNext()) {
-				races.add(new Race(scan.next(), scan.nextInt()));
-			}
-			scan.close();
-
-		} catch (Exception e) {
-			System.out.println(e.getClass()
-					+ " has happened while loading races");
-		}
-
-	}
-
-	private Race findRace(String rasa) {
-		for (int i = 0; i < races.size(); i++) {
-			if (rasa == races.get(i).name)
-				return races.get(i);
-		}
-		return null;
-	}
+	
+//TODO: po co to by³o.
+//	private Race findRace(String rasa) {
+//		for (int i = 0; i < races.size(); i++) {
+//			if (rasa == races.get(i).name)
+//				return races.get(i);
+//		}
+//		return null;
+//	}
 
 	private static void loadHeroes() {
 		// tymczasowo z pliku
