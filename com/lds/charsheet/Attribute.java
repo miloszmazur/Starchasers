@@ -7,7 +7,8 @@ public class Attribute
 	double endurance;
 	double inteligence;
 	double charisma;
-	double psi; 	double luck;
+	double psi; 	
+	double luck;
 	
 	public Attribute() {
 		dexternity = 0;

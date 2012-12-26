@@ -30,6 +30,8 @@ import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.xml.StaxDriver;
 
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.beans.XMLDecoder;
 import java.beans.XMLEncoder;
 
@@ -43,6 +45,7 @@ public class Main extends JFrame {
 	public JLabel varName;
 	public JLabel varLvl;
 	public JLabel varRace;
+	public Create create;
 	@SuppressWarnings("rawtypes")
 	private JList currentHeroes;
 	public static Vector<Race> races;
@@ -77,8 +80,7 @@ public class Main extends JFrame {
 			e.printStackTrace();
 		}
 		// TODO:
-		// GUI ;-;
-		// tworzenie i zapisywanie - buttony, nowy jframe, takie tam.
+		// GUI ;_;
 
 	}
 
@@ -96,7 +98,17 @@ public class Main extends JFrame {
 		menuBar.add(mnNew);
 
 		mntmNewChamp = new JMenuItem("New Champ");
+		mntmNewChamp.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) 
+			{
+				create = new Create();
+				create.setVisible(true);
+				create.pack();
+			}
+		});
 		mnNew.add(mntmNewChamp);
+		
 
 		mntmViewChamps = new JMenuItem("View Champs");
 		mnNew.add(mntmViewChamps);
