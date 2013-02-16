@@ -3,6 +3,7 @@ package com.lds.charsheet;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.TitledBorder;
+import javax.swing.plaf.SliderUI;
 import javax.swing.JButton;
 import net.miginfocom.swing.MigLayout;
 import java.awt.GridBagLayout;
@@ -36,18 +37,35 @@ public class Create extends JFrame {
 	private JTextField rep;
 	private JTextField stanowisko;
 	private Vector<Race> races;
+	@SuppressWarnings("rawtypes")
 	private JComboBox rasa;
 	private JLabel labelSilaPsi;
 	private JLabel labelPsionika;
+	private JSpinner wiek; 
+	private JSpinner wzrost;
+	private JSpinner waga;
+	private JEditorPane znakiSzczegolne;
+	
+	private JSpinner slawa;
+	private JSpinner staz;
+	private JSpinner poziom;
+	private JSpinner punktyStazu;
+	private JSpinner doswiadczenie;
+
+	private JSpinner inteligencja;
+	private JSpinner sila;
+	private JSpinner zrecznosc;
+	private JSpinner wytrzymalosc;
+	private JSpinner charyzma;
 	private JSpinner psionika;
+	
 
-
-
-
+	
 	public Create() 
 	{
 		setTitle("Starchasers lol");
-		//DefaultCloseOperation - dispoze on close bedzie wlasciwe? research.
+		//DefaultCloseOperation - dispose on close bedzie wlasciwe? research.
+		//TAK
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 439, 665);
 		setResizable(false);
@@ -91,7 +109,7 @@ public class Create extends JFrame {
 		gbc_lblWzrost.gridy = 0;
 		podstawy.add(lblWzrost, gbc_lblWzrost);
 		
-		JSpinner wzrost = new JSpinner();
+		wzrost = new JSpinner();
 		GridBagConstraints gbc_wzrost = new GridBagConstraints();
 		gbc_wzrost.fill = GridBagConstraints.HORIZONTAL;
 		gbc_wzrost.insets = new Insets(0, 0, 5, 5);
@@ -124,7 +142,7 @@ public class Create extends JFrame {
 		gbc_lblWaga.gridy = 1;
 		podstawy.add(lblWaga, gbc_lblWaga);
 		
-		JSpinner waga = new JSpinner();
+		waga = new JSpinner();
 		GridBagConstraints gbc_waga = new GridBagConstraints();
 		gbc_waga.fill = GridBagConstraints.HORIZONTAL;
 		gbc_waga.insets = new Insets(0, 0, 5, 5);
@@ -147,7 +165,6 @@ public class Create extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) 
 			{
-				//przepraszam doktora ratajczaka.
 				int potent = (int)((Race)rasa.getSelectedItem()).psiPotent;
 				labelSilaPsi.setText(potent+"%");
 				int rand = (int)(Math.random()*100+1);
@@ -192,7 +209,6 @@ public class Create extends JFrame {
 		
 		JLabel lblPlec = new JLabel("P\u0142e\u0107: ");
 		GridBagConstraints gbc_lblPe = new GridBagConstraints();
-		gbc_lblPe.anchor = GridBagConstraints.EAST;
 		gbc_lblPe.insets = new Insets(0, 0, 5, 5);
 		gbc_lblPe.gridx = 0;
 		gbc_lblPe.gridy = 3;
@@ -224,14 +240,14 @@ public class Create extends JFrame {
 		podstawy.add(kW, gbc_kW);
 		kW.setColumns(10);
 		
-		JLabel lblNewLabel = new JLabel("Wiek");
+		JLabel lblNewLabel = new JLabel("Wiek:");
 		GridBagConstraints gbc_lblNewLabel = new GridBagConstraints();
 		gbc_lblNewLabel.insets = new Insets(0, 0, 5, 5);
 		gbc_lblNewLabel.gridx = 0;
 		gbc_lblNewLabel.gridy = 4;
 		podstawy.add(lblNewLabel, gbc_lblNewLabel);
 		
-		JSpinner wiek = new JSpinner();
+		wiek = new JSpinner();
 		GridBagConstraints gbc_wiek = new GridBagConstraints();
 		gbc_wiek.fill = GridBagConstraints.HORIZONTAL;
 		gbc_wiek.insets = new Insets(0, 0, 5, 5);
@@ -247,7 +263,7 @@ public class Create extends JFrame {
 		gbc_lblZnakiSzczeglne.gridy = 4;
 		podstawy.add(lblZnakiSzczeglne, gbc_lblZnakiSzczeglne);
 		
-		JEditorPane znakiSzczegolne = new JEditorPane();
+		znakiSzczegolne = new JEditorPane();
 		GridBagConstraints gbc_znakiSzczegolne = new GridBagConstraints();
 		gbc_znakiSzczegolne.insets = new Insets(0, 0, 0, 5);
 		gbc_znakiSzczegolne.gridheight = 2;
@@ -322,7 +338,7 @@ public class Create extends JFrame {
 		gbc_lblPs.gridy = 2;
 		klasa_pd.add(lblPs, gbc_lblPs);
 		
-		JSpinner punktyStazu = new JSpinner();
+		punktyStazu = new JSpinner();
 		GridBagConstraints gbc_punktyStazu = new GridBagConstraints();
 		gbc_punktyStazu.insets = new Insets(0, 0, 5, 5);
 		gbc_punktyStazu.gridx = 3;
@@ -336,7 +352,7 @@ public class Create extends JFrame {
 		gbc_lblSawa.gridy = 3;
 		klasa_pd.add(lblSawa, gbc_lblSawa);
 		
-		JSpinner slawa = new JSpinner();
+		slawa = new JSpinner();
 		GridBagConstraints gbc_slawa = new GridBagConstraints();
 		gbc_slawa.insets = new Insets(0, 0, 5, 5);
 		gbc_slawa.anchor = GridBagConstraints.WEST;
@@ -351,7 +367,7 @@ public class Create extends JFrame {
 		gbc_lblSta.gridy = 3;
 		klasa_pd.add(lblStaz, gbc_lblSta);
 		
-		JSpinner staz = new JSpinner();
+		staz = new JSpinner();
 		GridBagConstraints gbc_staz = new GridBagConstraints();
 		gbc_staz.insets = new Insets(0, 0, 5, 5);
 		gbc_staz.gridx = 3;
@@ -365,7 +381,7 @@ public class Create extends JFrame {
 		gbc_lblPoziom.gridy = 4;
 		klasa_pd.add(lblPoziom, gbc_lblPoziom);
 		
-		JSpinner poziom = new JSpinner();
+		poziom = new JSpinner();
 		GridBagConstraints gbc_poziom = new GridBagConstraints();
 		gbc_poziom.anchor = GridBagConstraints.WEST;
 		gbc_poziom.fill = GridBagConstraints.VERTICAL;
@@ -381,7 +397,7 @@ public class Create extends JFrame {
 		gbc_lblPd.gridy = 5;
 		klasa_pd.add(lblPd, gbc_lblPd);
 		
-		JSpinner doswiadczenie = new JSpinner();
+		doswiadczenie = new JSpinner();
 		GridBagConstraints gbc_doswiadczenie = new GridBagConstraints();
 		gbc_doswiadczenie.insets = new Insets(0, 0, 0, 5);
 		gbc_doswiadczenie.anchor = GridBagConstraints.WEST;
@@ -406,7 +422,7 @@ public class Create extends JFrame {
 		gbc_lblSia.gridy = 0;
 		atrybuty.add(lblSia, gbc_lblSia);
 		
-		JSpinner sila = new JSpinner();
+		sila = new JSpinner();
 		GridBagConstraints gbc_sila = new GridBagConstraints();
 		gbc_sila.fill = GridBagConstraints.HORIZONTAL;
 		gbc_sila.gridwidth = 3;
@@ -422,7 +438,6 @@ public class Create extends JFrame {
 		gbc_lblSiaPsi.gridy = 0;
 		atrybuty.add(lblSiaPsi, gbc_lblSiaPsi);
 		
-		//TODO: tutaj trzeba zasadniczo sprawdzic, czy sila psi wystepuje w danym bohaterze i uaktywnic/dezaktywowac pole psionika
 		labelSilaPsi = new JLabel("");
 		
 		labelSilaPsi.setText((int)((Race)rasa.getSelectedItem()).psiPotent+"%");
@@ -439,7 +454,7 @@ public class Create extends JFrame {
 		gbc_lblZrczno.gridy = 1;
 		atrybuty.add(lblZrczno, gbc_lblZrczno);
 		
-		JSpinner zrecznosc = new JSpinner();
+		zrecznosc = new JSpinner();
 		GridBagConstraints gbc_zrecznosc = new GridBagConstraints();
 		gbc_zrecznosc.gridwidth = 3;
 		gbc_zrecznosc.fill = GridBagConstraints.HORIZONTAL;
@@ -470,7 +485,7 @@ public class Create extends JFrame {
 		gbc_lblWytrzymao.gridy = 2;
 		atrybuty.add(lblWytrzymao, gbc_lblWytrzymao);
 		
-		JSpinner wytrzymalosc = new JSpinner();
+		wytrzymalosc = new JSpinner();
 		GridBagConstraints gbc_wytrzymalosc = new GridBagConstraints();
 		gbc_wytrzymalosc.gridwidth = 3;
 		gbc_wytrzymalosc.fill = GridBagConstraints.HORIZONTAL;
@@ -504,7 +519,7 @@ public class Create extends JFrame {
 		gbc_lblNewLabel_1.gridy = 3;
 		atrybuty.add(lblNewLabel_1, gbc_lblNewLabel_1);
 		
-		JSpinner inteligencja = new JSpinner();
+		inteligencja = new JSpinner();
 		GridBagConstraints gbc_inteligencja = new GridBagConstraints();
 		gbc_inteligencja.gridwidth = 3;
 		gbc_inteligencja.fill = GridBagConstraints.HORIZONTAL;
@@ -520,7 +535,7 @@ public class Create extends JFrame {
 		gbc_lblNewLabel_2.gridy = 4;
 		atrybuty.add(lblNewLabel_2, gbc_lblNewLabel_2);
 		
-		JSpinner charyzma = new JSpinner();
+		charyzma = new JSpinner();
 		GridBagConstraints gbc_charyzma = new GridBagConstraints();
 		gbc_charyzma.gridwidth = 3;
 		gbc_charyzma.fill = GridBagConstraints.HORIZONTAL;
@@ -570,7 +585,6 @@ public class Create extends JFrame {
 		JLabel lblIHaveNo = new JLabel("I HAVE NO IDEA. RLY");
 		zdolnosci.add(lblIHaveNo);
 		
-		//ja wiem, moze jakos ladniej to ulozyc? Na razie sluzy.
 		JPanel buttony = new JPanel();
 		getContentPane().add(buttony, "cell 0 4,grow");
 		buttony.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
@@ -602,7 +616,7 @@ public class Create extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) 
 			{
-				//TODO: wlasciwe wyjscie?
+				//wlasciwe wyjscie? prawdop dzia³a. ew sprawdziæ w wp³yw na pamiêæ, czy coœ.
 				dispose();
 			}});
 		buttony.add(btnWyjdz);
@@ -611,13 +625,43 @@ public class Create extends JFrame {
 	private void clearFields() 
 	{
 		// TODO wyczysc fieldy. Like, wszystkie.
+		imie.setText("");
+		nazwisko.setText("");
+		rasa.setSelectedIndex(0);
+		plec.setText("");
+		wiek.setValue(0);
+		wzrost.setValue(0);
+		waga.setValue(0);
+		kO.setText("");
+		kW.setText("");
+		znakiSzczegolne.setText("");
+		
+		zawod.setText("");
+		rep.setText("");
+		stanowisko.setText("");
+		slawa.setValue(0);
+		poziom.setValue(0);
+		staz.setValue(0);
+		punktyStazu.setValue(0);
+		doswiadczenie.setValue(0);
+		
+		sila.setValue(0);
+		zrecznosc.setValue(0);
+		wytrzymalosc.setValue(0);
+		inteligencja.setValue(0);
+		charyzma.setValue(0);
+		psionika.setValue(0);
+		
+		//na razie tyle, more to come.
+		
+		
+		
 	}
 	private void saveChar() {
 		// TODO stworz hero z fieldow, zapisz go do obiektu, skorzystaj z xstream zeby przeksztalcic go do xmla, zapisz do pliku i wylacz okno.
 		
 	}
 	void loadRaces() {
-		// tymczasowo z pliku
 		try {
 			File file = new File(
 					"D:\\Dropbox\\Projekty\\Starchasers\\races.txt");
