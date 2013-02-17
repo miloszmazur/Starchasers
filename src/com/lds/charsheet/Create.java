@@ -659,6 +659,9 @@ public class Create extends JFrame {
 	}
 	private void saveChar() {
 		// TODO stworz hero z fieldow, zapisz go do obiektu, skorzystaj z xstream zeby przeksztalcic go do xmla, zapisz do pliku i wylacz okno.
+		String name = imie.getText();
+		String surnm = nazwisko.getText();
+		
 		
 	}
 	void loadRaces() {

@@ -30,7 +30,7 @@ public class Hero implements Serializable
 	
 	public Hero(String name, String surname, String race, String sex, int age, 
 			double height, double weight, String eC, String hC, String prof, int rep,
-			String cJ, int fame, int lvl, double pd, int staz, int ps)
+			String cJ, int fame, int lvl, double pd, int staz, int ps, Attribute atr)
 	{
 		this.name = name;
 		surnm= surname;
@@ -49,7 +49,7 @@ public class Hero implements Serializable
 		this.pd = pd;
 		this.staz = staz; //the fuck
 		this.ps = ps; //the fuck
-		//this.atr = atr;
+		this.atr = atr;
 		
 	}
 	public Hero()
@@ -71,7 +71,7 @@ public class Hero implements Serializable
 		pd = 0;
 		staz = 0; //the fuck
 		ps = 0; //the fuck
-		//atr = new Attribute();
+		atr = new Attribute();
 	}
 	
 	public String toString()
